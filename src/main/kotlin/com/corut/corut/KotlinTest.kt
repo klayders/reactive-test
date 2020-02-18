@@ -1,5 +1,7 @@
 package com.corut.corut
 
+import com.corut.corut.Utils.COUNT_THREAD
+import com.corut.corut.Utils.CYCLE_LOAD_OPERATION
 import java.lang.Thread.sleep
 import java.util.concurrent.atomic.AtomicLong
 import kotlin.concurrent.thread
@@ -12,12 +14,12 @@ fun main() {
     val currentTimeMillis = System.currentTimeMillis()
     val counter = AtomicLong()
 
-    for (i in 1..100) {
+	for (i in 1..COUNT_THREAD) {
         thread(start = true) {
 
             val loadCPU = AtomicLong()
 
-            for (i in 1..10_000_000L) {
+			for (i in 1..CYCLE_LOAD_OPERATION) {
                 loadCPU.incrementAndGet()
             }
             counter.incrementAndGet();
@@ -33,35 +35,3 @@ fun main() {
     println(System.currentTimeMillis() - currentTimeMillis)
 }
 
-
-
-//fun main() {
-//
-//    val currentTimeMillis = System.currentTimeMillis()
-//
-//    val counter = AtomicLong()
-//
-//
-//    for (i in 1..100) {
-//        thread(start = true) {
-//
-//            val c = AtomicLong()
-//
-//            for (i in 1..10_000_000L) {
-//                c.incrementAndGet()
-//            }
-//            counter.incrementAndGet();
-//        }
-//    }
-//
-//    while (counter.get() != 100L) {
-//        sleep(100)
-//    }
-//    println("i`m here")
-//
-//    println(counter.get())
-//
-//    println(System.currentTimeMillis() - currentTimeMillis)
-//
-//
-//}

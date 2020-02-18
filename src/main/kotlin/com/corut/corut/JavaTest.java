@@ -1,9 +1,8 @@
 package com.corut.corut;
 
-import reactor.core.publisher.Flux;
-import reactor.core.scheduler.Schedulers;
-
 import java.util.concurrent.atomic.AtomicLong;
+
+import static com.corut.corut.Utils.COUNT_THREAD;
 
 public class JavaTest {
 
@@ -15,16 +14,13 @@ public class JavaTest {
 		currentTimeMillis.set(System.currentTimeMillis());
 
 
-		for (int i = 0; i < 100; i++) {
-			new Thread(new Runnable() {
-				@Override
-				public void run() {
-					var counterForLoadCPU = new AtomicLong();
-					for (int i = 0; i < 10_000_000; i++) {
-						counterForLoadCPU.incrementAndGet();
-					}
-					counter.incrementAndGet();
+		for (int i = 0; i < COUNT_THREAD; i++) {
+			new Thread(() -> {
+				var counterForLoadCPU = new AtomicLong();
+				for (int i1 = 0; i1 < 10_000_000; i1++) {
+					counterForLoadCPU.incrementAndGet();
 				}
+				counter.incrementAndGet();
 			})
 				.start();
 		}
@@ -36,11 +32,5 @@ public class JavaTest {
 
 		System.out.println(System.currentTimeMillis() - currentTimeMillis.get());
 	}
-
-
-	/**
-	 * RUN ME FOR TEST REACTOR WEBFLUX
-	 * @throws InterruptedException
-	 */
 
 }
