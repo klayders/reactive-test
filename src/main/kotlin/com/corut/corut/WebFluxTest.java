@@ -5,8 +5,8 @@ import reactor.core.scheduler.Schedulers;
 
 import java.util.concurrent.atomic.AtomicLong;
 
-import static com.corut.corut.Utils.COUNT_THREAD;
-import static com.corut.corut.Utils.CYCLE_LOAD_OPERATION;
+import static com.corut.corut.utils.Utils.COUNT_THREAD;
+import static com.corut.corut.utils.Utils.CYCLE_LOAD_OPERATION;
 
 public class WebFluxTest {
 	public static void main(String[] args) throws InterruptedException {
